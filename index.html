@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help Clear My Debt - Personal Fundraising</title>
+    <title>ساعدني في سداد ديوني - حملة تمويل شخصية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,11 +15,11 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 100%);
             color: #e5e7eb;
             min-height: 100vh;
-            padding: 2rem 1rem;
+            padding: 1.5rem 1rem;
         }
 
         .container {
@@ -26,7 +29,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
 
         .icon-circle {
@@ -48,12 +51,13 @@
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             background: linear-gradient(135deg, #34d399 0%, #14b8a6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 1rem;
+            font-weight: 700;
         }
 
         .subtitle {
@@ -61,14 +65,14 @@
             font-size: 1.1rem;
             max-width: 700px;
             margin: 0 auto;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
         }
 
         .stat-card {
@@ -87,17 +91,20 @@
 
         .stat-label {
             color: #9ca3af;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-weight: 600;
         }
 
         .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
+            font-size: 1.75rem;
+            font-weight: 700;
             color: white;
+            direction: ltr;
+            text-align: right;
         }
 
         .stat-value.highlight {
@@ -108,14 +115,15 @@
             background: rgba(31, 41, 55, 0.5);
             border: 1px solid #374151;
             border-radius: 1rem;
-            padding: 2rem;
-            margin-bottom: 3rem;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2.5rem;
         }
 
         .progress-section h2 {
             text-align: center;
             margin-bottom: 1.5rem;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
+            font-weight: 700;
         }
 
         .progress-bar-container {
@@ -155,23 +163,25 @@
             justify-content: space-between;
             color: #9ca3af;
             font-size: 0.9rem;
+            font-weight: 600;
         }
 
         .payment-methods {
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
 
         .payment-methods h2 {
             text-align: center;
-            margin-bottom: 2rem;
-            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            font-weight: 700;
         }
 
         .payment-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .payment-card {
@@ -191,7 +201,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
         }
 
         .payment-icon {
@@ -202,6 +212,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
 
         .payment-icon svg {
@@ -211,13 +222,14 @@
         }
 
         .payment-card h3 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
         }
 
         .payment-detail {
             border-top: 1px solid #374151;
-            padding-top: 1rem;
-            margin-top: 1rem;
+            padding-top: 0.875rem;
+            margin-top: 0.875rem;
         }
 
         .payment-detail:first-child {
@@ -229,7 +241,8 @@
         .payment-detail-label {
             color: #9ca3af;
             font-size: 0.85rem;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
         }
 
         .payment-detail-value {
@@ -237,6 +250,8 @@
             font-family: 'Courier New', monospace;
             font-size: 0.95rem;
             word-break: break-all;
+            direction: ltr;
+            text-align: right;
         }
 
         .note-box {
@@ -246,29 +261,93 @@
             padding: 1.5rem;
             text-align: center;
             color: #9ca3af;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
 
         footer {
             text-align: center;
             color: #6b7280;
             font-size: 0.9rem;
-            margin-top: 4rem;
+            margin-top: 3rem;
             padding-top: 2rem;
             border-top: 1px solid #374151;
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.75rem;
+            }
+
             h1 {
-                font-size: 2rem;
+                font-size: 1.75rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
             }
 
             .stats-grid {
                 grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .stat-card {
+                padding: 1.25rem;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .progress-section {
+                padding: 1.5rem 1rem;
+            }
+
+            .progress-section h2,
+            .payment-methods h2 {
+                font-size: 1.4rem;
             }
 
             .payment-grid {
                 grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .payment-card {
+                padding: 1.25rem;
+            }
+
+            .payment-card h3 {
+                font-size: 1rem;
+            }
+
+            .icon-circle {
+                width: 70px;
+                height: 70px;
+            }
+
+            .icon-circle svg {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
+            }
+
+            .stat-value {
+                font-size: 1.35rem;
+            }
+
+            .payment-detail-value {
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -281,9 +360,9 @@
                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                 </svg>
             </div>
-            <h1>Help Clear My Debt</h1>
+            <h1>ساعدني في سداد ديوني</h1>
             <p class="subtitle">
-                Help me clear my financial debt and start fresh. Every contribution brings me closer to financial freedom. Your support means the world to me.
+                ساعدني في سداد ديوني المالية والبدء من جديد. كل مساهمة تقربني من الحرية المالية. دعمكم يعني لي الكثير.
             </p>
         </header>
 
@@ -295,9 +374,9 @@
                         <circle cx="12" cy="12" r="6"></circle>
                         <circle cx="12" cy="12" r="2"></circle>
                     </svg>
-                    Total Debt
+                    إجمالي المبلغ المطلوب
                 </div>
-                <div class="stat-value" id="total-debt">$10,000</div>
+                <div class="stat-value" id="total-debt">238,591 جنيه</div>
             </div>
 
             <div class="stat-card">
@@ -306,9 +385,9 @@
                         <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
                         <polyline points="17 6 23 6 23 12"></polyline>
                     </svg>
-                    Amount Raised
+                    المبلغ المُجمع
                 </div>
-                <div class="stat-value highlight" id="amount-raised">$0</div>
+                <div class="stat-value highlight" id="amount-raised">0 جنيه</div>
             </div>
 
             <div class="stat-card">
@@ -316,25 +395,25 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                     </svg>
-                    Remaining
+                    المبلغ المتبقي
                 </div>
-                <div class="stat-value" id="remaining">$10,000</div>
+                <div class="stat-value" id="remaining">238,591 جنيه</div>
             </div>
         </div>
 
         <div class="progress-section">
-            <h2>Campaign Progress</h2>
+            <h2>تقدم الحملة</h2>
             <div class="progress-bar-container">
                 <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
             </div>
             <div class="progress-info">
-                <span id="progress-percent">0% funded</span>
-                <span id="progress-remaining">100% remaining</span>
+                <span id="progress-percent">تم جمع 0%</span>
+                <span id="progress-remaining">متبقي 100%</span>
             </div>
         </div>
 
         <div class="payment-methods">
-            <h2>Payment Methods</h2>
+            <h2>طرق الدفع</h2>
             <div class="payment-grid">
                 <div class="payment-card">
                     <div class="payment-header">
@@ -344,19 +423,19 @@
                                 <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                             </svg>
                         </div>
-                        <h3>Bank Transfer (Egypt)</h3>
+                        <h3>تحويل بنكي</h3>
                     </div>
                     <div class="payment-detail">
-                        <div class="payment-detail-label">Bank</div>
-                        <div class="payment-detail-value">Bank Name</div>
+                        <div class="payment-detail-label">اسم البنك</div>
+                        <div class="payment-detail-value">اسم البنك</div>
                     </div>
                     <div class="payment-detail">
-                        <div class="payment-detail-label">Account Number</div>
+                        <div class="payment-detail-label">رقم الحساب</div>
                         <div class="payment-detail-value">XXXX-XXXX-XXXX</div>
                     </div>
                     <div class="payment-detail">
-                        <div class="payment-detail-label">Account Name</div>
-                        <div class="payment-detail-value">Your Name</div>
+                        <div class="payment-detail-label">اسم صاحب الحساب</div>
+                        <div class="payment-detail-value">اسمك هنا</div>
                     </div>
                 </div>
 
@@ -368,15 +447,15 @@
                                 <line x1="1" y1="10" x2="23" y2="10"></line>
                             </svg>
                         </div>
-                        <h3>Vodafone Cash</h3>
+                        <h3>فودافون كاش</h3>
                     </div>
                     <div class="payment-detail">
-                        <div class="payment-detail-label">Number</div>
+                        <div class="payment-detail-label">رقم الموبايل</div>
                         <div class="payment-detail-value">+20 XXX XXX XXXX</div>
                     </div>
                     <div class="payment-detail">
-                        <div class="payment-detail-label">Name</div>
-                        <div class="payment-detail-value">Your Name</div>
+                        <div class="payment-detail-label">الاسم</div>
+                        <div class="payment-detail-value">اسمك هنا</div>
                     </div>
                 </div>
 
@@ -388,7 +467,7 @@
                                 <line x1="1" y1="10" x2="23" y2="10"></line>
                             </svg>
                         </div>
-                        <h3>International (PayPal)</h3>
+                        <h3>دولي (PayPal)</h3>
                     </div>
                     <div class="payment-detail">
                         <div class="payment-detail-label">PayPal</div>
@@ -398,29 +477,29 @@
             </div>
 
             <div class="note-box">
-                Thank you for considering a contribution. Your kindness and generosity help me move toward a debt-free future. Every amount, no matter how small, makes a meaningful difference.
+                شكراً لتفكيركم في المساعدة. لطفكم وكرمكم يساعدني في التقدم نحو مستقبل خالٍ من الديون. كل مبلغ، مهما كان صغيراً، يصنع فرقاً حقيقياً.
             </div>
         </div>
 
         <footer>
-            <p>Thank you for your kindness and support. Every contribution makes a difference.</p>
+            <p>شكراً لطفكم ودعمكم. كل مساهمة تصنع فرقاً.</p>
         </footer>
     </div>
 
     <script>
-        const totalDebt = 10000;
+        const totalDebt = 238591;
         let amountRaised = 0;
 
         function updateProgress() {
             const remaining = totalDebt - amountRaised;
             const percentage = (amountRaised / totalDebt) * 100;
 
-            document.getElementById('total-debt').textContent = `$${totalDebt.toLocaleString()}`;
-            document.getElementById('amount-raised').textContent = `$${amountRaised.toLocaleString()}`;
-            document.getElementById('remaining').textContent = `$${remaining.toLocaleString()}`;
+            document.getElementById('total-debt').textContent = `${totalDebt.toLocaleString('ar-EG')} جنيه`;
+            document.getElementById('amount-raised').textContent = `${amountRaised.toLocaleString('ar-EG')} جنيه`;
+            document.getElementById('remaining').textContent = `${remaining.toLocaleString('ar-EG')} جنيه`;
             document.getElementById('progress-bar').style.width = `${Math.min(percentage, 100)}%`;
-            document.getElementById('progress-percent').textContent = `${percentage.toFixed(1)}% funded`;
-            document.getElementById('progress-remaining').textContent = `${(100 - percentage).toFixed(1)}% remaining`;
+            document.getElementById('progress-percent').textContent = `تم جمع ${percentage.toFixed(1)}%`;
+            document.getElementById('progress-remaining').textContent = `متبقي ${(100 - percentage).toFixed(1)}%`;
         }
 
         updateProgress();
