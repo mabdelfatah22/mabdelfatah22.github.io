@@ -520,21 +520,36 @@
 
     <script>
         const totalDebt = 238591;
-        let amountRaised = 841;
-
-        function updateProgress() {
-            const remaining = totalDebt - amountRaised;
-            const percentage = (amountRaised / totalDebt) * 100;
-
-            document.getElementById('total-debt').textContent = `${totalDebt.toLocaleString('ar-EG')} جنيه`;
-            document.getElementById('amount-raised').textContent = `${amountRaised.toLocaleString('ar-EG')} جنيه`;
-            document.getElementById('remaining').textContent = `${remaining.toLocaleString('ar-EG')} جنيه`;
-            document.getElementById('progress-bar').style.width = `${Math.min(percentage, 100)}%`;
-            document.getElementById('progress-percent').textContent = `تم جمع ${percentage.toFixed(1)}%`;
-            document.getElementById('progress-remaining').textContent = `متبقي ${(100 - percentage).toFixed(1)}%`;
+        
+        async function getAmountFromSheet() {
+          try {
+            const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTwr723kf8Wcy5MRM1khqrM5B0AGmjx1-quO3RLzjbHD550vYJ_pu9Lnh5vAVb6_63onap0OmquyWn8/pub?output=csv");
+            const text = await res.text();
+            const rows = text.split("\n").map(r => r.split(","));
+            // rows[1][1] = the value under "amountRaised"
+            const amount = parseFloat(rows[1][1]) || 0;
+            return amount;
+          } catch (err) {
+            console.error("Failed to fetch from Google Sheet:", err);
+            return 0;
+          }
         }
-
-        updateProgress();
-    </script>
+        
+        function updateProgress(amountRaised) {
+          const remaining = totalDebt - amountRaised;
+          const percentage = (amountRaised / totalDebt) * 100;
+        
+          document.getElementById('total-debt').textContent = `${totalDebt.toLocaleString('ar-EG')} جنيه`;
+          document.getElementById('amount-raised').textContent = `${amountRaised.toLocaleString('ar-EG')} جنيه`;
+          document.getElementById('remaining').textContent = `${remaining.toLocaleString('ar-EG')} جنيه`;
+          document.getElementById('progress-bar').style.width = `${Math.min(percentage, 100)}%`;
+          document.getElementById('progress-percent').textContent = `تم جمع ${percentage.toFixed(1)}%`;
+          document.getElementById('progress-remaining').textContent = `متبقي ${(100 - percentage).toFixed(1)}%`;
+        }
+        
+        // Fetch the number, then update the UI
+        getAmountFromSheet().then(amount => updateProgress(amount));
+        </script>
+        
 </body>
 </html>
