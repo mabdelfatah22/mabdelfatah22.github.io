@@ -276,6 +276,101 @@
             text-decoration: underline;
         }
 
+        .top-contributors {
+            background: rgba(31, 41, 55, 0.5);
+            border: 1px solid #374151;
+            border-radius: 1rem;
+            padding: 2rem 1.5rem;
+            margin-top: 2.5rem;
+            text-align: center;
+        }
+
+        .contributors-list {
+            margin-top: 1.5rem;
+            text-align: right;
+            background: rgba(16, 185, 129, 0.05);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .contributor-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .contributor-item:hover {
+            background: rgba(16, 185, 129, 0.1);
+            transform: translateX(-5px);
+        }
+
+        .contributor-item:first-child {
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(31, 41, 55, 0.5) 100%);
+        }
+
+        .contributor-item:nth-child(2) {
+            border: 1px solid rgba(192, 192, 192, 0.3);
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.05) 0%, rgba(31, 41, 55, 0.5) 100%);
+        }
+
+        .contributor-item:nth-child(3) {
+            border: 1px solid rgba(205, 127, 50, 0.3);
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.05) 0%, rgba(31, 41, 55, 0.5) 100%);
+        }
+
+        .contributor-rank {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+        }
+
+        .contributor-item:first-child .contributor-rank {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1a1f2e;
+        }
+
+        .contributor-item:nth-child(2) .contributor-rank {
+            background: linear-gradient(135deg, #e5e7eb 0%, #9ca3af 100%);
+            color: #1a1f2e;
+        }
+
+        .contributor-item:nth-child(3) .contributor-rank {
+            background: linear-gradient(135deg, #cd7f32 0%, #92400e 100%);
+            color: white;
+        }
+
+        .contributor-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contributor-name {
+            font-size: 1.1rem;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .contributor-amount {
+            font-size: 1rem;
+            color: #e5e7eb;
+            font-weight: 600;
+        }
+
         footer {
             text-align: center;
             color: #6b7280;
@@ -341,6 +436,17 @@
             .icon-circle svg {
                 width: 35px;
                 height: 35px;
+            }
+
+            .contributor-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .contributor-info {
+                width: 100%;
+                justify-content: space-between;
             }
         }
 
@@ -500,6 +606,11 @@
                     </div>
                 </div>
             </div>
+            <div class="top-contributors">
+                <h2>أعلى 3 مساهمين</h2>
+                <div id="topContributorsList" class="contributors-list"></div>
+            </div>
+              
 
             <div class="note-box">
                 المساعدة مش بس فلوس تقدر تشارك مع أصحابك وعيلتك أو دعوة حلوة تفرج ما نحن فيه. 
@@ -507,8 +618,8 @@
 
             <div class="note-box">
                 تقدر كمان تدخل على اللينكات دي وتستنى لما العداد يخلص أو تدوس على الموقع اللي فيها وبكدا تقدر كمان تكون ساعدت
-                <div><a href="https://t7milati.com/blog/lmarena.ai/?pub=hn_bahaa1" target="_blank">اللينك ٢</a></div>
-                <div><a href="https://t7milati.com/co.elfie.app/?pub=hn_bahaa1" target="_blank">اللينك ٣</a></div>
+                <div><a href="https://t7milati.com/blog/lmarena.ai/?pub=hn_bahaa1" target="_blank">اللينك ١</a></div>
+                <div><a href="https://t7milati.com/co.elfie.app/?pub=hn_bahaa1" target="_blank">اللينك ٢</a></div>
             </div>
         </div>
 
@@ -548,7 +659,41 @@
         
         // Fetch the number, then update the UI
         getAmountFromSheet().then(amount => updateProgress(amount));
-        </script>
         
+        async function getTopContributors() {
+            const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT1MYCwFSVb1XG0b4_dg-yAPDeonumIlWHY5ElaBk5qbQLaDj99rAsUBOMyj8nh_vV8xhIImjLuU1LO/pub?output=csv";
+            try {
+                const response = await fetch(sheetUrl);
+                const text = await response.text();
+                
+                // Parse CSV data
+                const lines = text.split('\n');
+                const rows = lines.slice(1).map(line => {
+                    const values = line.split(',');
+                    return {
+                        name: values[0] || "Anonymous",
+                        amount: parseFloat(values[1]) || 0
+                    };
+                });
+
+                const sorted = rows.sort((a, b) => b.amount - a.amount).slice(0, 3);
+                const container = document.getElementById("topContributorsList");
+
+                container.innerHTML = sorted.map((c, index) => `
+                    <div class="contributor-item">
+                        <div class="contributor-info">
+                            <div class="contributor-rank">${index + 1}</div>
+                            <div class="contributor-name">${c.name.slice(0, 3)}****</div>
+                        </div>
+                        <div class="contributor-amount">${c.amount.toLocaleString('ar-EG')} جنيه</div>
+                    </div>
+                `).join("");
+            } catch (err) {
+                console.error("Failed to fetch contributors:", err);
+            }
+        }
+
+        getTopContributors();
+    </script>
 </body>
 </html>
